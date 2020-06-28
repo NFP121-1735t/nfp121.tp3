@@ -29,6 +29,8 @@ public class Pile4Test extends junit.framework.TestCase {
 	// à l'aide du menu contextuel "Présentoir --> Engagements".
 	// Notez cependant que ce dernier ne peut saisir les objets primitifs
 	// du présentoir (les objets sans constructeur, comme int, float, etc.).
+	private PileI p1;
+	private PileI p2;
 
 	/**
 	 * Constructeur de la classe-test Pile4Test
@@ -44,6 +46,8 @@ public class Pile4Test extends junit.framework.TestCase {
 	protected void setUp() // throws java.lang.Exception
 	{
 		// Initialisez ici vos engagements
+		p1 = new question2.Pile4();
+		p2 = new question2.Pile4();
 
 	}
 
@@ -57,4 +61,98 @@ public class Pile4Test extends junit.framework.TestCase {
 		// Libérez ici les ressources engagées par setUp()
 	}
 
+
+	public void test_pile4_capacite()
+	{
+		assertEquals(PileI.CAPACITE_PAR_DEFAUT, p2.capacite());
+	}
+
+	public void test_pile4_estPleine() throws Exception
+	{
+		question2.Pile4 p = new question2.Pile4(3);
+		p.empiler(2);
+		assertEquals(1, p.taille());
+		p.empiler(3);
+		assertEquals(2, p.taille());
+		p.empiler(2);
+		assertEquals(3, p.taille());
+		assertEquals(true, p.estPleine());
+		assertEquals(p.capacite(), p.taille());
+		try{
+		    p.empiler(0);
+		    fail();
+		  }catch (Exception e){
+		      assertTrue(e instanceof question1.PilePleineException);
+		  }
 }
+		  
+		  
+		  
+		  
+	
+	public void test_pile4_estVide() throws Exception
+	{
+		question2.Pile4 p = new question2.Pile4(2);
+		assertEquals(true, p.estVide());
+		try{
+		    Object t = p.depiler();
+		    fail();
+		  }catch(Exception e){
+		      assertTrue(e instanceof question1.PileVideException);
+		  }
+}
+	
+	public void test_pile4_sommet() throws Exception
+	{
+		question2.Pile4 p = new question2.Pile4(3);
+		assertEquals(true, p.estVide());
+		p.empiler(3);
+		assertEquals("sommet",new Integer(3), p.sommet());
+		assertEquals(1, p.taille());
+		assertEquals("depiler",new Integer(3), p.depiler());
+		assertEquals(0, p.taille());
+
+	}
+
+	public void test_pile4_tailleNegative()
+	{
+		question2.Pile4 pp = new question2.Pile4(-2);
+		assertEquals(PileI.CAPACITE_PAR_DEFAUT, pp.capacite());
+	}
+
+	public void test_pile4_toString() throws Exception
+	{
+		question2.Pile4 p21 = new question2.Pile4(3);
+		assertEquals("toString impossible","[]", p21.toString());
+		p21.empiler(2);
+		assertEquals("toString Possible","[2]", p21.toString());
+		p21.empiler(4);
+		p21.empiler(6);
+		assertEquals("toString possible","[6,4,2]", p21.toString());
+
+	}
+
+	public void test_pile4_eqauls() throws Exception
+	{
+		p1.empiler(3);
+		p1.empiler(7);
+		p1.empiler(8);
+		p2.empiler(7);
+		p2.empiler(8);
+		p2.empiler(4);
+		assertTrue("egalite de deux piles", p1.equals(p2));
+		assertTrue("egalites de deux piles", p2.equals(p1));
+		assertTrue("egalite de deux piles", p2.equals(p2));
+		p2.empiler(4);
+		assertFalse("egalite de deux piles", p1.equals(p2));
+	}
+}
+
+
+
+
+
+
+
+
+

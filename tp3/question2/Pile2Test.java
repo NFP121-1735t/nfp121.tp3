@@ -33,6 +33,8 @@ public class Pile2Test extends junit.framework.TestCase {
 	/**
 	 * Constructeur de la classe-test Pile2Test
 	 */
+	private PileI pp;
+	private PileI pl;
 	public Pile2Test() {
 	}
 
@@ -43,6 +45,8 @@ public class Pile2Test extends junit.framework.TestCase {
 	 */
 	protected void setUp() // throws java.lang.Exception
 	{
+	    pp= new question2.Pile2();
+	    pl=new question2.Pile2();
 		// Initialisez ici vos engagements
 	}
 
@@ -55,6 +59,36 @@ public class Pile2Test extends junit.framework.TestCase {
 	{
 		// Libérez ici les ressources engagées par setUp()
 	}
+	 public void testPileCapacite(){
+	      assertEquals(PileI.CAPACITE_PAR_DEFAUT , pp.capacite());
+	   }
+	 public void testPileEstPleine() throws Exception{
+	     PileI p = new question2.Pile2(2);
+	     p.empiler(4);
+	     assertEquals(1, p.taille());
+	     p.empiler(7);
+	     assertEquals(2, p.taille());
+	     
+	     assertEquals(true, p.estPleine());
+	     assertEquals(p.taille(), p.capacite());
+	     try{
+	         p.empiler(9);
+	         fail();
+	       }catch(Exception e){
+	           assertTrue(e instanceof question1.PilePleineException);
+	       }
+	   }
+	   public void testSommetPile() throws Exception{
+	       PileI p = new question2.Pile2(2);
+	       assertEquals(true , p.estVide());
+	       p.empiler(new Integer(1));
+	       assertEquals( " sommet ??" , new Integer(1) , p.sommet());
+	       assertEquals(1, p.taille());
+	       assertEquals(" depiler ??" , new Integer(1) , p.depiler());
+	       assertEquals(0,p.taille());
+	   }
+	   
+	       
 
 	/**
 	 * Il ne vous reste plus qu'à définir une ou plusieurs méthodes de test. Ces
@@ -64,4 +98,62 @@ public class Pile2Test extends junit.framework.TestCase {
 	 * "Enregistrer une méthode de test".
 	 */
 
+
+
+
+	public void test_Pile_estVide() throws Exception {
+        PileI p = new question2.Pile2(3);
+        assertEquals(true, p.estVide());
+        try {
+            Object r = p.depiler();
+            fail();
+        } catch(Exception e){
+            assertTrue(e instanceof question1.PileVideException);
+        }
+    }
+
+
+ public void test_Pile2_toString() throws Exception {
+        question2.Pile2 Pile21 = new question2.Pile2(3);
+        assertEquals("toString impossible ", "[]", Pile21.toString());
+        Pile21.empiler(4);
+        assertEquals("toString possible ", "[4]", Pile21.toString());
+        Pile21.empiler(0);
+        assertEquals("toString possible ", "[0, 4]", Pile21.toString());
+        Pile21.empiler(3);
+        assertEquals("toString possible ", "[3, 0, 4]", Pile21.toString());
+
+
+    }
+    
+
+	public void test_Pile2_equals() throws Exception
+	{
+		pl.empiler(1);
+		pl.empiler(2);
+		pl.empiler(3);
+		pp.empiler(2);
+		pp.empiler(1);
+		pp.empiler(3);
+		assertTrue("egalite de deux piles 1", pl.equals(pp));
+		assertTrue("egalite de deux piles 2", pp.equals(pl));
+		assertTrue("egalite de de piles 4", pl.equals(pl));
+		pp.empiler(1);
+		assertFalse("egalite de deux piles 4", pl.equals(pp));
+	}
+
+	public void testPile_test_taille_negative()
+	{
+		question2.Pile2 p = new question2.Pile2(-3);
+		assertEquals(p.CAPACITE_PAR_DEFAUT, p.capacite());
+	}
 }
+
+
+
+
+
+	  
+		    
+
+

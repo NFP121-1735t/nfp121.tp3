@@ -20,7 +20,10 @@ public class UneUtilisation {
 			p1.empiler(new PolygoneRegulier(4,100));
 			// ....
 			String s = (String) p1.depiler(); // vérifiez qu'une exception se
-												// produit
+			/*Object D = p1.depiler();
+			if(D instanceof PolygoneRegulier){
+			    String str = D.toString();
+			 }*/// produit
 		} catch (Exception e) {
 			e.printStackTrace();
 		} // catch

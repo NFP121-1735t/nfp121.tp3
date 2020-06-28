@@ -12,7 +12,9 @@ import question1.PileVideException;
 public class Pile {
     public final static int TAILLE_PAR_DEFAUT = 5;
 
-    private int[] zone;
+    //private int[] zone;
+   private Object[] zone; //une pile d'objects ce pour cea on cree un
+                            //tableau d'object a la place du tableau d'integer
     private int ptr;
 
     /**
@@ -22,7 +24,8 @@ public class Pile {
     public Pile(int taille) {
         if (taille < 0)
             taille = TAILLE_PAR_DEFAUT;
-        this.zone = new int[taille];
+        //this.zone = new int[taille];
+        this.zone=new Object[taille]; // appliquer la taill du pile sur le tableau d'obects
         this.ptr = 0;
     }
 
@@ -30,14 +33,15 @@ public class Pile {
         this(TAILLE_PAR_DEFAUT);
     }
 
-    public void empiler(int i) throws PilePleineException {
+    public void empiler(Object i) throws PilePleineException {
         if (estPleine())
             throw new PilePleineException();
         this.zone[this.ptr] = i;
         this.ptr++;
     }
-
-    public int depiler() throws PileVideException {
+     public Object depiler() throws PileVideException{//affirmer que la methode depiler rendre un object
+                                                        //pas un integer
+   //public int depiler() throws PileVideException {
         if (estVide())
             throw new PileVideException();
         this.ptr--;
@@ -52,11 +56,12 @@ public class Pile {
         return ptr == zone.length;
     }
 
-    public String toString() {
+    public String toString(){
         StringBuffer sb = new StringBuffer("[");
         for (int i = ptr - 1; i >= 0; i--) {
-            sb.append(Integer.toString(zone[i]));
-            if (i > 0)
+            sb.append(zone[i].toString());//un object = string donc on n'est pas oblige de redefinir l'object devant la methode toString
+           if(zone[i]==null) {zone[i]=zone[i--];} //sb.append(Integer.toString(zone[i]));
+            if (i >= 0)
                 sb.append(", ");
         }
         sb.append("]");
